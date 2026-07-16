@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify repository files exist
+        run: |
+          echo "Checking repository contents"
+          test -f README.md
+          test -f simple.html
+          echo "Repository structure is present"
+
+      - name: Display files for debugging
+        run: |
+          find . -maxdepth 2 -type f | sort
